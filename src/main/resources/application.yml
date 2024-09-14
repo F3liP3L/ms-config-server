@@ -1,3 +1,22 @@
 spring:
   application:
     name: company-config-server
+  profiles:
+    active: default
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${CONFIG_SERVER_URL}
+          default-label: main
+          clone-on-start: true
+          username: ${CONFIG_SERVER_USERNAME}
+          password: ${CONFIG_SERVER_TOKEN}
+server:
+  port: 8070
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL}
